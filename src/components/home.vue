@@ -42,13 +42,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="check-all-section text-left">
-                                    <div v-if="countUnCompletedTodos == 0 " class="checked-checkbox">
-                                        <input  checked type="checkbox"> Check all
-                                    </div>
-                                     <div v-else class="un-checked-checkbox">
-                                        <input  type="checkbox"> Check all
-                                    </div> 
-                                    
+                                    <div class="checked-checkbox">
+                                        <input  :checked="!completeCountTrue" type="checkbox"> Check all
+                                    </div>                                   
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -69,7 +65,7 @@
         data() {
             return {
                 newTodo: '',
-                todoId: 4,
+                todoId: 3,
                 beforeTodoNameCache: '',
                 todos: [
                     {
@@ -84,14 +80,6 @@
                         edit: false,
                         completed: false
                     },
-                    {
-                        id: 3,
-                        todo_name: 'This is todo 3',
-                        edit: false,
-                        completed: false
-                    }
-
-
                 ],
 
             }
@@ -99,6 +87,9 @@
         computed: {
             countUnCompletedTodos(){
                return this.todos.filter(todo => todo.completed == false).length
+            },
+            completeCountTrue(){
+                return this.countUnCompletedTodos !== 0
             }
         },
         methods: {
@@ -140,6 +131,7 @@
                     return todo.completed = false
                 }
             }
+            
         },
         directives: {
             focus: {
@@ -157,7 +149,6 @@
 
         font-size: 16px;
     }
-
     .todo-checkbox {
         height: 10px;
         width: 10px;
@@ -166,17 +157,14 @@
         margin-left: 10px;
         background: lightblue;
     }
-
     .todo-list-area {
         /* background: rgb(190, 218, 245); */
         padding: 15px 10px;
         border-radius: 4px;
     }
-
     .add-new-todo-area {
         margin-bottom: 5px;
     }
-
     span {
         font-family: sans-serif;
         color: darkslategray;
@@ -186,16 +174,13 @@
     .title-area {
         color: darkcyan;
     }
-
     .single-todo {
         margin-top: 10px;
     }
-
     a.todo-remove-button {
         color: black;
         text-decoration: none;
     }
-
     .edit-todo-input {
         height: 25px;
         border-radius: 2px;
